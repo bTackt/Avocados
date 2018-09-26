@@ -38,7 +38,8 @@ Some relevant columns in the dataset: (copied from https://www.kaggle.com/neurom
 
 ```{r}
 avocado <- read.csv('avocado.csv', header = TRUE)
-head(avocado)
-dim(avocado)
-str(avocado)
+avo <- avocado[, c('Date', 'AveragePrice', 'Total.Volume', 'type', 'year', 'region')]
+head(avo)
+dim(avo)
+str(avo)
 ```
