@@ -13,9 +13,32 @@ output:
 geometry: right=2.5in
 ---
 
+
+```{r cache=FALSE, echo=FALSE}
+library(knitr)
+opts_chunk$set(fig.align="center", fig.height=5.5, fig.width=6, collapse=TRUE, comment="", prompt=TRUE)
+options(width=63)
+```
+
+dplyr reference: https://dplyr.tidyverse.org/reference/index.html
+
+#Read Data
+
+Some relevant columns in the dataset: (copied from https://www.kaggle.com/neuromusic/avocado-prices/home)
+
+ * Date - The date of the observation
+ * AveragePrice - the average price of a single avocado
+ * type - conventional or organic
+ * year - the year
+ * Region - the city or region of the observation
+ * Total Volume - Total number of avocados sold
+ * 4046 - Total number of avocados with PLU 4046 sold (small Hass)
+ * 4225 - Total number of avocados with PLU 4225 sold (large Hass)
+ * 4770 - Total number of avocados with PLU 4770 sold (extra large Hass)
+
 ```{r}
-avocado <- read.csv(file.choose(), header = TRUE)
-avocado
+avocado <- read.csv('avocado.csv', header = TRUE)
+head(avocado)
 dim(avocado)
 str(avocado)
 ```
