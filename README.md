@@ -8,3 +8,5 @@ Objectives:
     - DPLYR (select, filter, group-by, summarize)
 3. (optional) Answer a question
 4. (optional) Plot a graph
+
+Analyze price change versus time, per region, maybe also by type.
