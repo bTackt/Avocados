@@ -1,4 +1,21 @@
+---
+title: "Avocado Prices Project"
+author: "D.O. A.S."
+date: "Fall 2018"
+output:
+  html_document:
+    toc: yes
+    toc_depth: '2'
+  pdf_document:
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
+geometry: right=2.5in
+---
+
+```{r}
 avocado <- read.csv(file.choose(), header = TRUE)
 avocado
 dim(avocado)
 str(avocado)
+```
