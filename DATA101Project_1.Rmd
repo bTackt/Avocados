@@ -1,0 +1,4 @@
+avocado <- read.csv(file.choose(), header = TRUE)
+avocado
+dim(avocado)
+str(avocado)
