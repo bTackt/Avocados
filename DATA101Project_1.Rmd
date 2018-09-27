@@ -66,8 +66,11 @@ mean_ave
 ```
 # Filter Data
 ```{r}
-avo_f <- filter(avo, 'AveragePrice' > 1)
-head(avo_f)
+library(dplyr)
+avo <- mutate(avo,rate=ave/vol*100000)
+avop_f <- filter(avo, AveragePrice >= 1.41)
+head(avop_f)
+avor_f <- filter(avo,rate >= 1.5)
 
 ```
 
