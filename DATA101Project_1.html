@@ -130,10 +130,13 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#read-data">Read Data</a></li>
+<li><a href="#select-data">Select Data</a></li>
+<li><a href="#filter-data">Filter Data</a></li>
+<li><a href="#summarize">Summarize</a></li>
 </ul>
 </div>
 
-<pre><code>## Warning: package 'knitr' was built under R version 3.3.3</code></pre>
+<pre><code>## Warning: package 'knitr' was built under R version 3.4.4</code></pre>
 <p>dplyr reference: <a href="https://dplyr.tidyverse.org/reference/index.html" class="uri">https://dplyr.tidyverse.org/reference/index.html</a></p>
 <div id="read-data" class="section level1">
 <h1>Read Data</h1>
@@ -176,6 +179,75 @@ $(document).ready(function () {
  $ type        : Factor w/ 2 levels &quot;conventional&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
  $ year        : int  2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
  $ region      : Factor w/ 54 levels &quot;Albany&quot;,&quot;Atlanta&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+<div id="select-data" class="section level1">
+<h1>Select Data</h1>
+<pre class="r"><code>&gt; date &lt;- avo[,1]
+&gt; ave &lt;- avo[,2]
+&gt; vol &lt;- avo[,3]
+&gt; type &lt;- avo[,4]
+&gt; year &lt;- avo[,5]
+&gt; region &lt;- avo[,6]
+&gt; max_ave &lt;- max(avo$AveragePrice)
+&gt; max_ave
+[1] 3.25
+&gt; min_ave &lt;- min(avo$AveragePrice)
+&gt; min_ave
+[1] 0.44
+&gt; imax_ave &lt;- which.max(avo$AveragePrice)
+&gt; imax_ave 
+[1] 14126
+&gt; imin_ave &lt;- which.min(avo$AveragePrice)
+&gt; imin_ave
+[1] 15262
+&gt; avo$region[imax_ave]
+[1] SanFrancisco
+54 Levels: Albany Atlanta BaltimoreWashington Boise ... WestTexNewMexico
+&gt; avo$region[imin_ave]
+[1] CincinnatiDayton
+54 Levels: Albany Atlanta BaltimoreWashington Boise ... WestTexNewMexico
+&gt; mean_ave &lt;- mean(avo$AveragePrice)
+&gt; mean_ave
+[1] 1.405978</code></pre>
+</div>
+<div id="filter-data" class="section level1">
+<h1>Filter Data</h1>
+<pre class="r"><code>&gt; library(dplyr)
+Warning: package 'dplyr' was built under R version 3.4.4
+
+Attaching package: 'dplyr'
+The following objects are masked from 'package:stats':
+
+    filter, lag
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+&gt; avo &lt;- mutate(avo,rate=ave/vol*100000)
+Warning: package 'bindrcpp' was built under R version 3.4.4
+&gt; avop_f &lt;- filter(avo, AveragePrice &gt;= 1.41)
+&gt; head(avop_f)
+       Date AveragePrice Total.Volume         type year
+1  8/2/2015         1.45     75133.10 conventional 2015
+2 5/17/2015         1.43    109857.47 conventional 2015
+3 9/20/2015         1.54     60624.47 conventional 2015
+4 9/13/2015         1.59     73043.20 conventional 2015
+5  9/6/2015         1.56     76139.58 conventional 2015
+6 8/23/2015         1.49     68953.29 conventional 2015
+            region     rate
+1           Albany 1.929908
+2           Albany 1.301687
+3 BuffaloRochester 2.540228
+4 BuffaloRochester 2.176794
+5 BuffaloRochester 2.048869
+6 BuffaloRochester 2.160883
+&gt; avor_f &lt;- filter(avo,rate &gt;= 1.5)
+&gt; by_avo &lt;- group_by(avo, region)</code></pre>
+</div>
+<div id="summarize" class="section level1">
+<h1>Summarize</h1>
+<pre class="r"><code>&gt; summarize(avo,Ave_avo = mean(AveragePrice), med_avo = median(AveragePrice), ave_vol = mean(Total.Volume), med_vol = median(Total.Volume), rate_avo = mean(rate), med_rate = median(rate))
+   Ave_avo med_avo ave_vol  med_vol rate_avo med_rate
+1 1.405978    1.37  850644 107376.8 14.64848 1.238605</code></pre>
 </div>
 
 
