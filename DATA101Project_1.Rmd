@@ -18,6 +18,8 @@ geometry: right=2.5in
 library(knitr)
 opts_chunk$set(fig.align="center", fig.height=5.5, fig.width=6, collapse=TRUE, comment="", prompt=TRUE)
 options(width=63)
+
+library(dplyr)
 ```
 
 dplyr reference: https://dplyr.tidyverse.org/reference/index.html
@@ -39,18 +41,13 @@ Some relevant columns in the dataset: (copied from https://www.kaggle.com/neurom
 ```{r}
 avocado <- read.csv('avocado.csv', header = TRUE)
 avo <- avocado[, c('Date', 'AveragePrice', 'Total.Volume', 'type', 'year', 'region')]
-head(avo)
 dim(avo)
+head(avo)
 str(avo)
 ```
+
 #Select Data
 ```{r}
-date <- avo[,1]
-ave <- avo[,2]
-vol <- avo[,3]
-type <- avo[,4]
-year <- avo[,5]
-region <- avo[,6]
 max_ave <- max(avo$AveragePrice)
 max_ave
 min_ave <- min(avo$AveragePrice)
@@ -61,21 +58,35 @@ imin_ave <- which.min(avo$AveragePrice)
 imin_ave
 avo$region[imax_ave]
 avo$region[imin_ave]
-mean_ave <- mean(avo$AveragePrice)
-mean_ave
 ```
-# Filter Data
+
+##Average Price
 ```{r}
-library(dplyr)
-avo <- mutate(avo,rate=ave/vol*100000)
+mean_price <- mean(avo$AveragePrice)
+mean_price
+```
+
+##Sorted By Region
+```{r}
+regions <- select(avo, region) %>% unique %>% nrow
+regions
+unique(avo$region)
+```
+
+# Filter
+```{r}
+avo <- mutate(avo, 'rate' = ave/avo$Total.Volume*100000)
 avop_f <- filter(avo, AveragePrice >= 1.41)
 head(avop_f)
 avor_f <- filter(avo,rate >= 1.5)
 by_avo <- group_by(avo, region)
 
 ```
-#Summarize 
+
+#Summary
 ```{r}
 summarize(avo,Ave_avo = mean(AveragePrice), med_avo = median(AveragePrice), ave_vol = mean(Total.Volume), med_vol = median(Total.Volume), rate_avo = mean(rate), med_rate = median(rate))
+
+summary(avo$AveragePrice)
   
 ```
