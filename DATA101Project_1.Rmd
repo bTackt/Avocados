@@ -51,7 +51,18 @@ vol <- avo[,3]
 type <- avo[,4]
 year <- avo[,5]
 region <- avo[,6]
-
+max_ave <- max(avo$AveragePrice)
+max_ave
+min_ave <- min(avo$AveragePrice)
+min_ave
+imax_ave <- which.max(avo$AveragePrice)
+imax_ave 
+imin_ave <- which.min(avo$AveragePrice)
+imin_ave
+avo$region[imax_ave]
+avo$region[imin_ave]
+mean_ave <- mean(avo$AveragePrice)
+mean_ave
 ```
 # Filter Data
 ```{r}
