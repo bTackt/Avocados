@@ -43,3 +43,20 @@ head(avo)
 dim(avo)
 str(avo)
 ```
+#Select Data
+```{r}
+date <- avo[,1]
+ave <- avo[,2]
+vol <- avo[,3]
+type <- avo[,4]
+year <- avo[,5]
+region <- avo[,6]
+
+```
+# Filter Data
+```{r}
+avo_f <- filter(avo, 'AveragePrice' > 1)
+head(avo_f)
+
+```
+
