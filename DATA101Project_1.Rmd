@@ -71,6 +71,11 @@ avo <- mutate(avo,rate=ave/vol*100000)
 avop_f <- filter(avo, AveragePrice >= 1.41)
 head(avop_f)
 avor_f <- filter(avo,rate >= 1.5)
+by_avo <- group_by(avo, region)
 
 ```
-
+#Summarize 
+```{r}
+summarize(avo,Ave_avo = mean(AveragePrice), med_avo = median(AveragePrice), ave_vol = mean(Total.Volume), med_vol = median(Total.Volume))
+  
+```
