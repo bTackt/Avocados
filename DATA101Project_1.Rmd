@@ -47,18 +47,15 @@ str(avo)
 ```
 
 #Select Data
+#vol is the enitre column of Total.Volume
 ```{r}
 max_ave <- max(avo$AveragePrice)
 max_ave
 min_ave <- min(avo$AveragePrice)
 min_ave
-imax_ave <- which.max(avo$AveragePrice)
-imax_ave 
-imin_ave <- which.min(avo$AveragePrice)
-imin_ave
-avo$region[imax_ave]
-avo$region[imin_ave]
+vol <- avo$Total.Volume
 ```
+
 
 ##Average Price
 ```{r}
@@ -72,14 +69,20 @@ regions <- select(avo, region) %>% unique %>% nrow
 regions
 unique(avo$region)
 ```
-
-# Filter
+#order the region by Average Price ( cheapest to most expensive)
 ```{r}
-avo <- mutate(avo, 'rate' = ave/avo$Total.Volume*100000)
+index <- order(avo$AveragePrice)
+avo$region[index]
+```
+# Filter
+#...filter 
+```{r}
+avo <- mutate(avo, rate = avo$AveragePrice/vol*100000)
 avop_f <- filter(avo, AveragePrice >= 1.41)
-head(avop_f)
 avor_f <- filter(avo,rate >= 1.5)
 by_avo <- group_by(avo, region)
+head(avop_f)
+head(avor_f)
 
 ```
 
