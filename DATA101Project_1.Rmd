@@ -48,6 +48,14 @@ str(avo)
 
 #Select Data
 
+##Timeframe
+
+When did the observations begin and end?
+```{r}
+min(as.Date(as.character(avo$Date), format = "%m/%d/%Y"))
+max(as.Date(as.character(avo$Date), format = "%m/%d/%Y"))
+```
+
 ##Max and Min
 
 What is the highest average price? The smallest?
@@ -84,11 +92,9 @@ Then filter by some arbitrary standards.
 vol <- avo$Total.Volume
 avo <- mutate(avo, rate = avo$AveragePrice/vol*100000)
 avop_f <- filter(avo, AveragePrice >= 1.41)
-avor_f <- filter(avo,rate >= 1.5)
-by_avo <- group_by(avo, region)
+avor_f <- filter(avo, rate >= 14.7)
 head(avop_f)
 head(avor_f)
-head(by_avo)
 ```
 
 #Group By
