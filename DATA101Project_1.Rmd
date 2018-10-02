@@ -90,7 +90,8 @@ head(by_avo)
 #Group By
 What is the difference between average price for conventional and organic avocados? We use group by to find out.
 ```{r}
-
+types <- group_by(avo, type)
+summarize(types, "Price" = mean(AveragePrice))
 ```
 
 #Summarize
