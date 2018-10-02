@@ -47,49 +47,67 @@ str(avo)
 ```
 
 #Select Data
-#vol is the enitre column of Total.Volume
+##Max and Min
+What is the highest average price? The smallest?
 ```{r}
 max_ave <- max(avo$AveragePrice)
 max_ave
 min_ave <- min(avo$AveragePrice)
 min_ave
-vol <- avo$Total.Volume
 ```
 
 
 ##Average Price
+What about average average price? This is over all time and all places and all types of avocado.
 ```{r}
 mean_price <- mean(avo$AveragePrice)
 mean_price
 ```
 
 ##Sorted By Region
+What kind of regions are there? Let's get the number of different regions, and have them printed out.
 ```{r}
 regions <- select(avo, region) %>% unique %>% nrow
 regions
-unique(avo$region)
 ```
-#order the region by Average Price ( cheapest to most expensive)
-```{r}
-index <- order(avo$AveragePrice)
-avo$region[index]
-```
+
 # Filter
-#...filter 
+Make a new column 'rate' that gives price per volume.
+
+Then filter by some arbitrary standards.
+
 ```{r}
+vol <- avo$Total.Volume
 avo <- mutate(avo, rate = avo$AveragePrice/vol*100000)
 avop_f <- filter(avo, AveragePrice >= 1.41)
 avor_f <- filter(avo,rate >= 1.5)
 by_avo <- group_by(avo, region)
 head(avop_f)
 head(avor_f)
+head(by_avo)
+```
+
+#Group By
+What is the difference between average price for conventional and organic avocados? We use group by to find out.
+```{r}
 
 ```
 
-#Summary
+#Summarize
+Here are some means and medians, as well as the five-number summary for average price. We use summarize() to rename columns for output.
+
 ```{r}
-summarize(avo,Ave_avo = mean(AveragePrice), med_avo = median(AveragePrice), ave_vol = mean(Total.Volume), med_vol = median(Total.Volume), rate_avo = mean(rate), med_rate = median(rate))
+summarize(avo, "Average Average Price" = mean(AveragePrice), "Median Average Price"  = median(AveragePrice), "Average Total Volume" = mean(Total.Volume), "Median Total Volume" = median(Total.Volume), "Average Rate" = mean(rate), "Median Rate" = median(rate))
 
 summary(avo$AveragePrice)
   
+```
+
+#Graphs (filtered by region)
+We are going to create plots per region of price vs time.
+```{r}
+for (i in unique(avo$region)) {
+  tmp <- filter(avo, region == i)
+  plot(tmp$Date, tmp$AveragePrice, type = "b", main = i, xlab = "Date", ylab = "Average Price", ylim = c(0, 3.5))
+}
 ```
