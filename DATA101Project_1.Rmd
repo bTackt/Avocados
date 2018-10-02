@@ -47,7 +47,9 @@ str(avo)
 ```
 
 #Select Data
+
 ##Max and Min
+
 What is the highest average price? The smallest?
 ```{r}
 max_ave <- max(avo$AveragePrice)
@@ -56,8 +58,8 @@ min_ave <- min(avo$AveragePrice)
 min_ave
 ```
 
-
 ##Average Price
+
 What about average average price? This is over all time and all places and all types of avocado.
 ```{r}
 mean_price <- mean(avo$AveragePrice)
@@ -65,6 +67,7 @@ mean_price
 ```
 
 ##Sorted By Region
+
 What kind of regions are there? Let's get the number of different regions, and have them printed out.
 ```{r}
 regions <- select(avo, region) %>% unique %>% nrow
@@ -72,6 +75,7 @@ regions
 ```
 
 # Filter
+
 Make a new column 'rate' that gives price per volume.
 
 Then filter by some arbitrary standards.
@@ -88,6 +92,7 @@ head(by_avo)
 ```
 
 #Group By
+
 What is the difference between average price for conventional and organic avocados? We use group by to find out.
 ```{r}
 types <- group_by(avo, type)
@@ -95,6 +100,7 @@ summarize(types, "Price" = mean(AveragePrice))
 ```
 
 #Summarize
+
 Here are some means and medians, as well as the five-number summary for average price. We use summarize() to rename columns for output.
 
 ```{r}
@@ -105,6 +111,7 @@ summary(avo$AveragePrice)
 ```
 
 #Graphs (filtered by region)
+
 We are going to create plots per region of price vs time.
 ```{r}
 for (i in unique(avo$region)) {
